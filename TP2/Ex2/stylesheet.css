@@ -1,0 +1,10 @@
+label {
+    background-color: skyblue;
+    padding-right: 20px;
+}
+
+input {
+    background-color: lightgreen;
+    margin-left: 15px;
+    margin-top: 5px;
+}

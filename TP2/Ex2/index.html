@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheet.css">
+    <title>Formulaire</title>
+</head>
+<body>
+<h1>Formulaire</h1>
+
+    <form>
+        <div class="labelinputpair">
+        <label for="nom">Nom</label>
+        <input type="text" id="nom"/>
+        </div>
+
+        <div class="labelinputpair">
+        <label for="prenom">Prenom</label>
+        <input type="text" id="prenom"/>
+        </div>
+
+        <div class="labelinputpair">
+        <label for="mdp">Mot de passe</label>
+        <input type="password" id="mdp"/>
+        </div>
+
+        <div class="labelinputpair">
+        <label for="genre">Genre</label>
+        <select id="genre">
+            <option>Masculin</option>
+            <option>Feminin</option>
+            <option>Autre</option>
+        </select>
+        </div>
+
+        <div class="labelinputpair">
+        <label for="naissance">Date de naissance</label>
+        <input type="date" id="naissance"/>
+        </div>
+
+        <div class="labelinputpair">
+        <label for="age">Age</label>
+        <input type="number" id="age"/>
+        </div>
+
+        <div class="labelinputpair">
+        <label for="tel">Telephone</label>
+        <input type="number" minlength="10" maxlength="10" id="tel"/>
+        </div>
+
+        <div class="labelinputpair">
+            <label for="region"> Region </label>
+            <select id="region">
+                <option></option>
+                <option>Ile de France</option>
+                <optgroup label="Province">
+                    <option> Hauts-de-France </option>
+                    <option> Provence-Alpes-Cotes d Azur</option>
+                    <option>Occitanie</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <div class="labelinputpair">
+        <label for="color">Couleur de maison</label>
+        <input type="color" id="color"/>
+        </div>
+
+        <div class="labelinputpair">
+        <label>Tranche de prix :</label>
+        <label for="min">min</label>
+        <input type="number" id="min"/>
+        <label for="max">max</label>
+        <input type="number" id="max"/>
+        </div>
+
+        <div class="labelinputpair">
+            <label for="cin">Carte d'identite</label>
+            <input type="file" id="cin"/>
+        </div>
+
+        <div class="labelinputpair">
+            <label for="dvisite">Date de visite</label>
+            <input type="date" id="dvisite"/>
+        </div>
+
+        <div class="labelinputpair">
+            <label for="hvisite"> Heure de visite</label>
+            <input type="time" id="hvisite"/>
+        </div>
+
+        <div class="labelinputpair">
+            <label for="condition"> Condition d'utilisation </label>
+            <input type="checkbox" id="condition"/>
+        </div>
+
+        <div class="labelinputpair">
+            <button> Valider </button>
+        </div>
+    </form>
+
+</body>
+</html>

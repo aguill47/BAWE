@@ -1,0 +1,40 @@
+h1 {
+    text-align: center;
+    color: blue;
+    text-decoration: underline;
+}
+
+#copyright {
+    font-size: 10px;
+}
+
+strong:hover {
+    font-size: 25px;
+}
+
+#mainpart p:first-child strong {
+    color: red;
+    font-weight: bold;
+}
+
+#mainpart p strong {
+    color: blue;
+}
+
+#keys em {
+    font-family: monospace;
+}
+
+figcaption {
+    font-style: italic;
+}
+
+figure {
+    margin: auto;
+    border: solid;
+    border-color: black;
+}
+
+#illustration {
+    text-align: center;
+}
