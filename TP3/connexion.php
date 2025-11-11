@@ -1,7 +1,5 @@
 <?php
 
-include("config.php");
-
 $conn_string = "host=".HOSTNAME." port=".PORT." dbname=".DATABASE." user=".LOGIN." password=".PASSWORD;
 $conn = pg_connect($conn_string);
 

@@ -48,6 +48,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php if (!empty($error)): ?>
   <p style="color:red;"><?= htmlspecialchars($error) ?></p>
 <?php endif; ?>
+<?php
+if (isset($_GET['action']) && $_GET['action'] === 'logout') {
+    session_destroy();
+    header("Location: index.php");
+    exit;
+}
+?>
 
 <form method="post">
   <input type="text" name="username" placeholder="Nom d'utilisateur" required><br>

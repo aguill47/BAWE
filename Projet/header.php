@@ -33,7 +33,7 @@ if ($lang === 'fr') {
     ';
     if (isset($_SESSION["user_id"])) {
         echo ' | <a href="ajout.php">Ajouter un film</a>
-               | <a href="logout.php">Déconnexion (' . htmlspecialchars($_SESSION["username"]) . ')</a>';
+               | <a href="login.php?action=logout">Déconnexion (' . htmlspecialchars($_SESSION["username"]) . ')</a>';
     } else {
         echo ' | <a href="login.php">Connexion</a>';
     }
@@ -57,7 +57,12 @@ if ($lang === 'fr') {
     <?php else: ?>
         <a href="?lang=fr">🇫🇷 Français</a>
     <?php endif; ?>
+        
+    <button id="theme-toggle" title="Changer de thème">🌙</button>
+
     </nav>
-    <hr>
   </header>
+
+  <script src="js/theme.js"></script>
+
 
