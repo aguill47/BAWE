@@ -1,43 +1,56 @@
+<?php include('header.php'); ?>
+
 <?php
-session_start(); // obligatoire ici aussi !
+include 'connexion.php'; // doit définir $conn (pg_connect)
 
-// après avoir vérifié les identifiants
-$_SESSION['user_id'] = $u['id'];
-$_SESSION['username'] = $u['username'];
-
-
-
-include('config.php');
-include('connexion.php');
+$error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $user = $_POST['username'];
-    $pass = $_POST['password'];
+    $user = $_POST['username'] ?? '';
+    $pass = $_POST['password'] ?? '';
 
-    // Requête sécurisée avec paramètres
-    $result = pg_query_params($conn, "SELECT * FROM users WHERE username = $1", array($user));
+    // Optionnel : nettoyage basique
+    $user = trim($user);
+
+    // On ne sélectionne que ce qui est nécessaire
+    $result = pg_query_params(
+        $conn,
+        "SELECT id, username, password FROM users WHERE username = $1 LIMIT 1",
+        [$user]
+    );
 
     if ($result && pg_num_rows($result) > 0) {
         $u = pg_fetch_assoc($result);
 
-        // Mot de passe en clair : on compare directement
-        if ($pass === $u['password']) {
-            $_SESSION['user_id'] = $u['id'];
+        // Si tes mots de passe sont HASHÉS (recommandé) :
+        // $isValid = password_verify($pass, $u['password']);
+
+        // Si ce n'est PAS hashé (comme ton code actuel) :
+        $isValid = ($pass === $u['password']);
+
+        if ($isValid) {
+            // Sécurise la session
+            session_regenerate_id(true);
+            $_SESSION['user_id']  = $u['id'];
             $_SESSION['username'] = $u['username'];
-            header("Location: index.php");
+
+            header('Location: index.php');
             exit;
         } else {
-            echo "<p> Mot de passe incorrect.</p>";
+            $error = "Mot de passe incorrect.";
         }
     } else {
-        echo "<p> Utilisateur introuvable.</p>";
+        $error = "Utilisateur introuvable.";
     }
 }
 ?>
+
+<?php if (!empty($error)): ?>
+  <p style="color:red;"><?= htmlspecialchars($error) ?></p>
+<?php endif; ?>
 
 <form method="post">
   <input type="text" name="username" placeholder="Nom d'utilisateur" required><br>
   <input type="password" name="password" placeholder="Mot de passe" required><br>
   <button type="submit">Connexion</button>
 </form>
-
