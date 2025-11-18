@@ -32,7 +32,7 @@ if ($lang === 'fr') {
     <a href="person.php">Réalisateurs</a>
     ';
     if (isset($_SESSION["user_id"])) {
-        echo ' | <a href="ajout.php">Ajouter un film</a>
+        echo ' | <a href="ajout.php">Ajouter un court métrage</a>
                | <a href="login.php?action=logout">Déconnexion (' . htmlspecialchars($_SESSION["username"]) . ')</a>';
     } else {
         echo ' | <a href="login.php">Connexion</a>';
@@ -42,13 +42,14 @@ if ($lang === 'fr') {
     <a href="index.php">Home</a> |
     <a href="films.php">Short films</a> |
     <a href="person.php">Directors</a>
-    ';
-    if (isset($_SESSION["user_id"])) {
-        echo ' | <a href="ajout.php">Add a film</a>
-               | <a href="logout.php">Logout (' . htmlspecialchars($_SESSION["username"]) . ')</a>';
-    } else {
-        echo ' | <a href="login.php">Login</a>';
-    }
+';
+
+if (isset($_SESSION["user_id"])) {
+    echo ' | <a href="ajout.php">Add a short film</a>
+           | <a href="login.php?action=logout">Logout (' . htmlspecialchars($_SESSION["username"]) . ')</a>';
+} else {
+    echo ' | <a href="login.php">Login</a>';
+}
 }
 ?>
 

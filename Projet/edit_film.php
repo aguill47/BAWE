@@ -1,15 +1,14 @@
 <?php
 include('connexion.php');
+include('header.php');
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Récupérer l'ID
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 if ($id <= 0) {
-    die("ID invalide.");
+    die(($lang === 'fr') ? "ID invalide." : "Invalid ID.");
 }
 
-// Si envoi du formulaire -> UPDATE
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $titre_fr = $_POST['titre_fr'] ?? '';
     $titre_en = $_POST['titre_en'] ?? '';
@@ -37,42 +36,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: films.php");
         exit;
     } else {
-        $error = "Erreur de mise à jour : " . pg_last_error($conn);
+        $error = ($lang === 'fr')
+            ? "Erreur de mise à jour : " . pg_last_error($conn)
+            : "Update error: " . pg_last_error($conn);
     }
 }
 
-// Charger les données actuelles
 $res = pg_query_params($conn, "SELECT * FROM film WHERE id = $1", [$id]);
 if (!$res || pg_num_rows($res) === 0) {
-    die("Film introuvable.");
+    die(($lang === 'fr') ? "Film introuvable." : "Film not found.");
 }
 $film = pg_fetch_assoc($res);
 ?>
 
-<h2>Modifier le film #<?= htmlspecialchars($film['id']) ?></h2>
+<h2 style="text-align:center;">
+  <?= ($lang === 'fr')
+    ? "Modifier le film " . htmlspecialchars($film['titre_fr'])
+    : "Edit film " . htmlspecialchars($film['titre_en']) ?>
+</h2>
+
 <?php if (!empty($error)): ?>
-  <p style="color:red;"><?= htmlspecialchars($error) ?></p>
+  <p style="color:red; text-align:center;"><?= htmlspecialchars($error) ?></p>
 <?php endif; ?>
 
-<form method="post" style="max-width:600px;">
-  <label>Titre (FR)</label><br>
+<form method="post" style="max-width:600px; margin:auto;">
+  <label><?= ($lang === 'fr') ? "Titre (Français)" : "Title (French)" ?></label><br>
   <input type="text" name="titre_fr" value="<?= htmlspecialchars($film['titre_fr']) ?>" required><br><br>
 
-  <label>Titre (EN)</label><br>
+  <label><?= ($lang === 'fr') ? "Titre (Anglais)" : "Title (English)" ?></label><br>
   <input type="text" name="titre_en" value="<?= htmlspecialchars($film['titre_en']) ?>" required><br><br>
 
-  <label>Description (FR)</label><br>
+  <label><?= ($lang === 'fr') ? "Description (Français)" : "Description (French)" ?></label><br>
   <textarea name="description_fr" rows="3"><?= htmlspecialchars($film['description_fr']) ?></textarea><br><br>
 
-  <label>Description (EN)</label><br>
+  <label><?= ($lang === 'fr') ? "Description (Anglais)" : "Description (English)" ?></label><br>
   <textarea name="description_en" rows="3"><?= htmlspecialchars($film['description_en']) ?></textarea><br><br>
 
-  <label>Lien YouTube (film)</label><br>
+  <label><?= ($lang === 'fr') ? "Lien YouTube (film complet)" : "YouTube link (full film)" ?></label><br>
   <input type="text" name="lien_youtube_film" value="<?= htmlspecialchars($film['lien_youtube_film']) ?>"><br><br>
 
-  <label>Lien YouTube (trailer, optionnel)</label><br>
+  <label><?= ($lang === 'fr') ? "Lien YouTube (trailer, optionnel)" : "YouTube link (trailer, optional)" ?></label><br>
   <input type="text" name="lien_youtube_trailer" value="<?= htmlspecialchars($film['lien_youtube_trailer']) ?>"><br><br>
 
-  <button type="submit">Enregistrer</button>
-  <a href="films.php">Annuler</a>
+  <button type="submit">
+    <?= ($lang === 'fr') ? "Enregistrer" : "Save" ?>
+  </button>
+  <a href="films.php">
+    <?= ($lang === 'fr') ? "Annuler" : "Cancel" ?>
+  </a>
 </form>
+
+<?php include('footer.php'); ?>

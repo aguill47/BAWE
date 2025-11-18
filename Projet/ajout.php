@@ -1,6 +1,10 @@
-<?php
+<?php 
 include('connexion.php'); 
 include('header.php'); 
+?>
+<main>
+<?php
+
 
 
 if (!isset($_SESSION['user_id'])) {
@@ -13,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $titre_en = $_POST['titre_en'] ?? '';
     $desc_fr  = $_POST['description_fr'] ?? '';
     $desc_en  = $_POST['description_en'] ?? '';
-    $film_link = $_POST['lien_film'] ?? '';
+    $film_link = $_POST['lien_film'] ?? null;   
     $trailer_link = $_POST['lien_trailer'] ?? null; // trailer facultatif
 
     // Préparer la requête d’insertion
@@ -58,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <?php
+
 echo ($lang === 'fr')
   ? '
   <h2>Ajouter un court-métrage</h2>
@@ -74,8 +79,8 @@ echo ($lang === 'fr')
     <label>Description (Anglais)</label><br>
     <textarea name="description_en" placeholder="Description en anglais" rows="3"></textarea><br><br>
 
-    <label>Lien YouTube (film complet)</label><br>
-    <input type="text" name="lien_film" placeholder="https://youtu.be/..." required><br><br>
+    <label>Lien YouTube (film complet, optionnel)</label><br>
+    <input type="text" name="lien_film" placeholder="https://youtu.be/..." ><br><br>
 
     <label>Lien YouTube (trailer, optionnel)</label><br>
     <input type="text" name="lien_trailer" placeholder="https://youtu.be/..."><br><br>
@@ -98,8 +103,8 @@ echo ($lang === 'fr')
     <label>Description (English)</label><br>
     <textarea name="description_en" placeholder="Description in English" rows="3"></textarea><br><br>
 
-    <label>YouTube link (full film)</label><br>
-    <input type="text" name="lien_film" placeholder="https://youtu.be/..." required><br><br>
+    <label>YouTube link (full film, optional)</label><br>
+    <input type="text" name="lien_film" placeholder="https://youtu.be/..." ><br><br>
 
     <label>YouTube link (trailer, optional)</label><br>
     <input type="text" name="lien_trailer" placeholder="https://youtu.be/..."><br><br>
@@ -107,4 +112,8 @@ echo ($lang === 'fr')
     <button type="submit">Add</button>
   </form>
   ';
+
 ?>
+</main>
+
+<?php include('footer.php') ?>

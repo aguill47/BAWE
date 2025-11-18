@@ -1,6 +1,6 @@
 <?php include('header.php'); ?>
 <?php include('connexion.php'); ?>
-
+<main>
 <?php
 echo ($lang === 'fr')
   ? '<h2>Liste des courts-métrages</h2>'
@@ -8,6 +8,17 @@ echo ($lang === 'fr')
 ?>
 
 <?php
+
+    function toEmbedUrl($url) {
+        if (strpos($url, 'youtu.be/') !== false) {
+            return str_replace('youtu.be/', 'www.youtube.com/embed/', $url);
+        }
+        if (strpos($url, 'watch?v=') !== false) {
+            return str_replace('watch?v=', 'embed/', $url);
+        }
+        return $url; 
+    }
+
 $isLoggedIn = !empty($_SESSION['user_id']);
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -23,15 +34,7 @@ while ($row = pg_fetch_assoc($result)) {
     $lienFilm = $row['lien_youtube_film'] ?? '';
     $lienTrailer = $row['lien_youtube_trailer'] ?? '';
 
-    function toEmbedUrl($url) {
-        if (strpos($url, 'youtu.be/') !== false) {
-            return str_replace('youtu.be/', 'www.youtube.com/embed/', $url);
-        }
-        if (strpos($url, 'watch?v=') !== false) {
-            return str_replace('watch?v=', 'embed/', $url);
-        }
-        return $url; 
-    }
+
 
     $embedFilm = toEmbedUrl($lienFilm);
     $embedTrailer = toEmbedUrl($lienTrailer);
@@ -66,6 +69,5 @@ while ($row = pg_fetch_assoc($result)) {
 }
 ?>
 
-
-
-<!-- <?php include('includes/footer.php'); ?> -->
+</main>
+<?php include('footer.php'); ?>
